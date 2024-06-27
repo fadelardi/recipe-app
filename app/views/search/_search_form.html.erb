@@ -1,0 +1,24 @@
+<%= form_with url: "/recipes", id: "ingredient_search", method: :get do |form| %>
+<section>
+    <header>
+      <i class="fa-solid fa-magnifying-glass"></i> 
+      Recipe Finder
+    </header>
+    <fieldset role="group">
+    <%= form.text_field :ingredient_input_box, placeholder: "ADD ingredients to the LIST, then FIND RECIPES..."  %>
+    <%= form.button "Add", type: "button", id: "add_ingredient_btn", onclick: "addIngredientOnClick()" %>
+    </fieldset>
+    <footer>
+      <% if !@category.nil? %>
+        <small>
+          <i class="fa-solid fa-circle-exclamation"></i>
+          Only searching in <strong><%= @category %></strong> category. <a href="/">Reset?</a>
+        </small>
+        <%= form.hidden_field :category, name: "category", value: @category %>
+      <% end %>
+      <%= form.submit "Find Recipes", id: "find_recipe_btn", disabled: @ingredients.nil? || @ingredients.length == 0 %>
+    </footer>
+</section>
+<%= render partial: "search/ingredients_list", locals: { form: form } %>
+<% end %>
+<%= javascript_include_tag "search_form" %>

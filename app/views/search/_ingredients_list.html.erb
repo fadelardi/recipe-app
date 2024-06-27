@@ -1,0 +1,14 @@
+<section id="test">
+  <header>
+    <i class="fa-solid fa-cart-shopping"></i> Ingredient List
+  </header>
+  <ul id="user_ingredients">
+  <% @ingredients&.each do |ingredient| %>
+    <li>
+      <%= ingredient %> 
+        <i class="fa-solid fa-circle-xmark" onclick="removeIngredientOnClick(event)"></i>
+      <%= form.hidden_field :ingredient_list, name: "ingredient_list[]", value: ingredient %>
+    </li>
+  <% end %>
+  </ul> 
+</section>
