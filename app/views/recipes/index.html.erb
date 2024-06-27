@@ -1,0 +1,15 @@
+<%= render partial: "layouts/search_form" %>
+
+<section>
+  <header>Here are some recipes we found...<header>
+</section>
+
+<% @recipes.each do |recipe| %>
+  <%= render partial: "recipes/recipe", locals: { 
+    title: recipe.title,
+    image: recipe[:image],
+    prep_time: recipe[:prep_time_min],
+    cook_time: recipe[:cook_time_min]
+  } %>
+<% end %>
+

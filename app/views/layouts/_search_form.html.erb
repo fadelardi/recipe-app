@@ -1,0 +1,30 @@
+<%= form_with url: "/recipes", id: "ingredient_search", method: :get do |form| %>
+<section>
+    <header>
+      <i class="fa-solid fa-magnifying-glass"></i> 
+      Ingredient -> Recipe Finder
+    </header>
+    <fieldset role="group">
+    <%= form.text_field :ingredient_input_box, placeholder: "ADD ingredients to the LIST, then FIND RECIPES..."  %>
+    <%= form.button "Add", type: "button", id: "add_ingredient_btn", onclick: "addIngredientOnClick()" %>
+    </fieldset>
+    <footer>
+      <%= form.submit "Find Recipes", id: "find_recipe_btn" %>
+    </footer>
+</section>
+<section>
+  <header>
+    <i class="fa-solid fa-cart-shopping"></i> Ingredient List
+  </header>
+    <ul id="user_ingredients">
+    <% @ingredients.each do |ingredient| %>
+      <li>
+        <%= ingredient %> 
+          <i class="fa-solid fa-circle-xmark" onclick="removeIntegredientOnClick(event)"></i>
+        <%= form.hidden_field :ingredient_list, name: "ingredient_list[]", value: ingredient %>
+      </li>
+    <% end %>
+    </ul> 
+</section>
+<% end %>
+<%= javascript_include_tag "search_form" %>
