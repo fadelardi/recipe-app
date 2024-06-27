@@ -5,17 +5,29 @@ function addIngredientOnClick() {
     if (ingredientInputBoxValue && ingredientInputBoxValue.length) {
       addIntegredient(ingredientInputBoxValue)
       resetInputValue()
+      resetFindButtonDisabledStatus()
     }
 }  
 
-function removeIntegredientOnClick(e) {
-  e.preventDefault()
+function removeIngredientOnClick(e) {
   event.target.parentNode.remove()
+  resetFindButtonDisabledStatus()
 }
 
 function addIntegredient(ingredientText) {
   if (ingredientText && ingredientText.length) {
     addIntegredientToUserList(ingredientText)
+  }
+}
+
+function resetFindButtonDisabledStatus() {
+  const currentIngredientListElems = document.querySelectorAll('#ingredient_list')
+  const findButton = document.getElementById('find_recipe_btn') 
+  
+  if (currentIngredientListElems.length) {
+    findButton.removeAttribute('disabled')
+  } else {
+    findButton.setAttribute('disabled', true)
   }
 }
 
@@ -32,8 +44,8 @@ function addIntegredientToUserList(ingredientText) {
   const inputRemoveBtn = document.createElement('i')
   inputRemoveBtn.setAttribute('class', 'fa-solid fa-circle-xmark')
   inputRemoveBtn.addEventListener('click', (e) => { 
-    e.preventDefault()
     input.remove()
+    resetFindButtonDisabledStatus()
   })
 
   input.append(inputText, inputRemoveBtn, hiddenElement)
@@ -45,6 +57,7 @@ function addIngredientToHiddenPayload(val) {
   const input = document.createElement('input')
 
   input.setAttribute('type', 'hidden')
+  input.setAttribute('id', 'ingredient_list')
   input.setAttribute('name', 'ingredient_list[]')
   input.setAttribute('value', val)
 

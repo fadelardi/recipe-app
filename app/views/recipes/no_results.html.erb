@@ -1,12 +1,12 @@
-<h1>Results for Recipes</h1>
+<%= render partial: "search/search_form" %>
 
-<%= render partial: "layouts/search_form" %>
-
-<hr>
-
-<div class="no-results">
-  <br />
-  It seems we have no recipe with those ingredients :(
-  <br />
-  Please try again! We're sure you'll find something else.
-</div>
+<article>
+  <header><i class="fa-solid fa-face-sad-cry"></i> No recipes came up!</header>
+  <body>
+    <p>It seems we have no recipe with those ingredients</p>
+    <p>Please <a href="/">try again</a>! We're sure you'll find something else.</p>
+  </body>
+  <footer>
+    Or maybe try some categories from the main menu!
+  </footer>
+</article>
