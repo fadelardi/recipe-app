@@ -24,6 +24,14 @@ class RecipesController < ApplicationController
     end 
   end
 
+  def show
+    @recipe = Recipe.find(params[:id]) 
+
+    if !@recipe.nil?
+      @ingredients = Ingredient.where(recipe_id: @recipe.id) 
+    end
+  end
+
   private
     def search_params
       params.permit(:category, :ingredient_list => [])

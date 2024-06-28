@@ -8,6 +8,7 @@
 
 <% @recipes.each do |recipe| %>
   <%= render partial: "recipes/recipe", locals: { 
+    id: recipe.id,
     title: recipe.title,
     image: recipe[:image],
     prep_time: recipe[:prep_time_min],
