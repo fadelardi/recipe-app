@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  include Pagy::Backend
+
   def index
     @ingredients = search_params[:ingredient_list] || [] 
     @category = search_params[:category]
@@ -15,7 +17,7 @@ class RecipesController < ApplicationController
       )
     end
 
-    @recipes = base_query         
+    @pagy, @recipes = pagy(base_query)
 
     if @recipes.length == 0
       render "recipes/no_results"
