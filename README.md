@@ -4,6 +4,19 @@ This app find recipes by having users list ingredients they might have at home.
 
 ![Screenshot 2024-06-28 162348](https://github.com/fadelardi/recipe-app/assets/29372822/38bb5ec6-63d0-4948-9475-ed508acb793e)
 
+## For Code Reviewers, Some Context
+
+1. Provided data sets had different structures. The migrator script works with English data set. See structure below.
+2. The English data set has a peculiar pattern to the images: `https://proxyurl.com/url=encodeurl`. With this in mind, the migrator script retrieves the actual URL and decodes it.
+3. This is done purely in Rails (i.e. it isn't a SPA). This was a time-saving choice so as to not struggle with Rails 7's importmap situation. 
+4. Pagination is done with gem Pagy.
+5. PG gem has been added.
+6. The data has been divided in two tables to take advantage of relations.  
+7. Migrator script only works with a local file (won't work in the server unless the data file is uploaded).
+8. Images are not optimised, so expect slow loading times for them.
+9. In trying to improve the UX, sometimes "category" field is used, others the "ingredient". This is because, for example, if somewhere to search for "vegetable" in the ingredient list, they would get a lot of false positive, like "vegetable oil." Categories work better for more generic searches.
+10. There are many code improvements that could be made. I would be very glad to discuss them :)
+
 ## UX Considerations
 
 - Make app easier by providing "groups" of foods (like beef, chicken, etc).
@@ -12,11 +25,20 @@ This app find recipes by having users list ingredients they might have at home.
 - Use friendly, informal language, and personal pronouns to feel the user welcome:
 ![Screenshot 2024-06-28 162428](https://github.com/fadelardi/recipe-app/assets/29372822/1d4a3fa2-9cd0-4fb0-a6d0-7a69a4f619dd)
 
+## User Stories
+
+Business personas: Occasional User and Regular User.
+
+1. As OU, I want quickly find some recipes, so that I can get to cooking without losing much time.
+2. As OU, I want to understand at a glance when there are no recipes, so that I can start my search again.
+3. As RU, I want to easily be able to add ingredients, so that I can get relevant recipes from what I have at home.
+4. As RU, I want to be able to remove ingredients quickly, so that I can adjust to different ingredient combinations.
+   
 ## How to Run Locally
 
-- Check out code. Create PG database.
-- Name DB "recipe_app" and create user recipe with password recipe (or change in `database.yml`)
-- Use Rake task `import_recipes_json[./recipe-data-sample.json]` to populate db (data not supplied in repo). The data should be local JSON file and formatted this way:
+- Check out code. Create PG database, "recipe_app"
+- Create user `recipe` with password `recipe` (or change in `database.yml`)
+- Use Rake task `rails import_recipes_json[./recipe-data-sample.json]` to populate db (data not supplied in repo). The data should be local JSON file and formatted this way:
 
 ```javascript
 [{
