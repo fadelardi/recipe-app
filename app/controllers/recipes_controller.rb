@@ -6,6 +6,7 @@ class RecipesController < ApplicationController
     @category = search_params[:category]
     base_query = nil
 
+    puts "cat", @category
     if !@category.nil? && @category.length > 0
       base_query = Recipe.where("category ILIKE ?", "%#{@category}%")  
     end
@@ -17,11 +18,12 @@ class RecipesController < ApplicationController
       )
     end
 
-    @pagy, @recipes = pagy(base_query)
-
-    if @recipes.length == 0
-      render "recipes/no_results"
-    end 
+    if base_query.nil?
+      render json: []
+    else
+      render json: base_query
+    end
+    # @pagy, @recipes = pagy(base_query)
   end
 
   def show
@@ -30,6 +32,8 @@ class RecipesController < ApplicationController
     if !@recipe.nil?
       @ingredients = Ingredient.where(recipe_id: @recipe.id) 
     end
+
+    render json: @recipe.attributes.merge(:ingredients => @ingredients).to_json
   end
 
   private
