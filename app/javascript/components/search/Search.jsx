@@ -84,7 +84,7 @@ function CategoryDisclaimer(props) {
 
   return (
     <small>
-      <i className="fa-solid fa-circle-exclamation"></i>
+      <i className="fa-solid fa-circle-exclamation"></i>&nbsp;
       Only searching in <strong>{category}</strong> category. <a onClick={resetCategory}>Reset?</a>
     </small>
   )

@@ -8,7 +8,7 @@ function WelcomeDialog() {
   return (
     <article>
       <header>
-        <i className="fa-solid fa-circle-info"></i>&nbsp
+        <i className="fa-solid fa-circle-info"></i>&nbsp;
         Search for recipes using at home ingredients
       </header>
       <p>
