@@ -4,19 +4,6 @@ This app find recipes by having users list ingredients they might have at home.
 
 ![Screenshot 2024-06-28 162348](https://github.com/fadelardi/recipe-app/assets/29372822/38bb5ec6-63d0-4948-9475-ed508acb793e)
 
-## For Code Reviewers, Some Context
-
-1. Provided data sets had different structures. The migrator script works with English data set. See structure below.
-2. The English data set has a peculiar pattern to the images: `https://proxyurl.com/url=encodeurl`. With this in mind, the migrator script retrieves the actual URL and decodes it.
-3. This is done purely in Rails (i.e. it isn't a SPA). This was a time-saving choice so as to not struggle with Rails 7's importmap situation. 
-4. Pagination is done with gem Pagy.
-5. PG gem has been added.
-6. The data has been divided in two tables to take advantage of relations.  
-7. Migrator script only works with a local file (won't work in the server unless the data file is uploaded).
-8. Images are not optimised, so expect slow loading times for them.
-9. In trying to improve the UX, sometimes "category" field is used, others the "ingredient". This is because, for example, if somewhere to search for "vegetable" in the ingredient list, they would get a lot of false positive, like "vegetable oil." Categories work better for more generic searches.
-10. There are many code improvements that could be made. I would be very glad to discuss them :)
-
 ## UX Considerations
 
 - Make app easier by providing "groups" of foods (like beef, chicken, etc).
